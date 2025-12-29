@@ -255,5 +255,7 @@ namespace Mindmagma.Curses.Interop
         private static dt_use_default_colors call_use_default_colors = NativeToDelegate<dt_use_default_colors>("use_default_colors");
         internal static int use_default_colors() => call_use_default_colors();
 
+        internal const int ERR = -1;
+        internal const int OK = 0;
     }
 }

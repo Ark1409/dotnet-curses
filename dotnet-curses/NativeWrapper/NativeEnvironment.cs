@@ -73,5 +73,55 @@ namespace Mindmagma.Curses.Interop
         private delegate int dt_timeout(int delay);
         private static dt_timeout call_timeout = NativeToDelegate<dt_timeout>("timeout");
         internal static int timeout(int delay) => call_timeout(delay);
+
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
+        private delegate IntPtr dt_tigetstr(string cap);
+        private static dt_tigetstr call_tigetstr = NativeToDelegate<dt_tigetstr>("tigetstr");
+        internal static IntPtr tigetstr(string cap) => call_tigetstr(cap);
+
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
+        private delegate int dt_tigetflag(string cap);
+        private static dt_tigetflag call_tigetflag = NativeToDelegate<dt_tigetflag>("tigetflag");
+        internal static int tigetflag(string cap) => call_tigetflag(cap);
+
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
+        private delegate int dt_tigetnum(string cap);
+        private static dt_tigetnum call_tigetnum = NativeToDelegate<dt_tigetnum>("tigetnum");
+        internal static int tigetnum(string cap) => call_tigetnum(cap);
+
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
+        private delegate IntPtr dt_tiparmi1(string str, int i0);
+        private static dt_tiparmi1 call_tiparmi1 = NativeToDelegate<dt_tiparmi1>("tiparm");
+        internal static IntPtr tiparm(string str, int i0) => call_tiparmi1(str, i0);
+
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
+        private delegate IntPtr dt_tiparmi2(string str, int i0, int i1);
+        private static dt_tiparmi2 call_tiparmi2 = NativeToDelegate<dt_tiparmi2>("tiparm");
+        internal static IntPtr tiparm(string str, int i0, int i1) => call_tiparmi2(str, i0, i1);
+
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
+        private delegate IntPtr dt_tiparmi3(string str, int i0, int i1, int i2);
+        private static dt_tiparmi3 call_tiparmi3 = NativeToDelegate<dt_tiparmi3>("tiparm");
+        internal static IntPtr tiparm(string str, int i0, int i1, int i2) => call_tiparmi3(str, i0, i1, i2);
+
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
+        private delegate IntPtr dt_tiparms1(string str, string s1);
+        private static dt_tiparms1 call_tiparms1 = NativeToDelegate<dt_tiparms1>("tiparm");
+        internal static IntPtr tiparm(string str, string s1) => call_tiparms1(str, s1);
+
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
+        private delegate IntPtr dt_tiparms2(string str, string s1, string s2);
+        private static dt_tiparms2 call_tiparms2 = NativeToDelegate<dt_tiparms2>("tiparm");
+        internal static IntPtr tiparm(string str, string s1, string s2) => call_tiparms2(str, s1, s2);
+
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
+        private delegate int dt_tputs(string str, int affcnt, IntPtr /* int (*putc)(int) */ func);
+        private static dt_tputs call_tputs = NativeToDelegate<dt_tputs>("tputs");
+        internal static int tputs(string str, int affcnt, IntPtr /* int (*putc)(int) */ func) => call_tputs(str, affcnt, func);
+
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
+        private delegate int dt_setupterm(string str, int fildes, IntPtr /* int* */ errret);
+        private static dt_setupterm call_setupterm = NativeToDelegate<dt_setupterm>("setupterm");
+        internal static int setupterm(string str, int filedes, IntPtr /* int* */ errret) => call_setupterm(str, filedes, errret);
     }
 }
