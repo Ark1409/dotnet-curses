@@ -160,6 +160,9 @@ namespace Mindmagma.Curses
         public delegate int PutcFunc(char c);
         public delegate void PutcFunc2(char c);
 
+        public delegate int PutcFunc3(int c);
+        public delegate void PutcFunc4(int c);
+
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
         private delegate int TputsFunc(int c);
 
@@ -175,6 +178,22 @@ namespace Mindmagma.Curses
         public static void Tputs(string s, int affcnt, PutcFunc2 func)
         {
             TputsFunc internalFunc = c => { func((char)c); return 1; };
+
+            var funcPointer = Marshal.GetFunctionPointerForDelegate(internalFunc);
+            int result = Native.tputs(s, affcnt, funcPointer);
+            NativeExceptionHelper.ThrowOnFailure(result, nameof(Tputs));
+        }
+
+        public static void Tputs(string s, int affcnt, PutcFunc3 func)
+        {
+            var funcPointer = Marshal.GetFunctionPointerForDelegate(func);
+            int result = Native.tputs(s, affcnt, funcPointer);
+            NativeExceptionHelper.ThrowOnFailure(result, nameof(Tputs));
+        }
+
+        public static void Tputs(string s, int affcnt, PutcFunc4 func)
+        {
+            TputsFunc internalFunc = c => { func(c); return 1; };
 
             var funcPointer = Marshal.GetFunctionPointerForDelegate(internalFunc);
             int result = Native.tputs(s, affcnt, funcPointer);
