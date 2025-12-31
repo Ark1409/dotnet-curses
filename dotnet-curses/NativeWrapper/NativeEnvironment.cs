@@ -105,6 +105,11 @@ namespace Mindmagma.Curses.Interop
         internal static IntPtr tiparm(string str, int i0, int i1, int i2) => call_tiparmi3(str, i0, i1, i2);
 
         [UnmanagedFunctionPointer(CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
+        private delegate IntPtr dt_tiparmi4(string str, int i0, int i1, int i2, int i3);
+        private static dt_tiparmi4 call_tiparmi4 = NativeToDelegate<dt_tiparmi4>("tiparm");
+        internal static IntPtr tiparm(string str, int i0, int i1, int i2, int i3) => call_tiparmi4(str, i0, i1, i2, i3);
+
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
         private delegate IntPtr dt_tiparms1(string str, string s1);
         private static dt_tiparms1 call_tiparms1 = NativeToDelegate<dt_tiparms1>("tiparm");
         internal static IntPtr tiparm(string str, string s1) => call_tiparms1(str, s1);
@@ -115,13 +120,43 @@ namespace Mindmagma.Curses.Interop
         internal static IntPtr tiparm(string str, string s1, string s2) => call_tiparms2(str, s1, s2);
 
         [UnmanagedFunctionPointer(CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
-        private delegate int dt_tputs(string str, int affcnt, IntPtr /* int (*putc)(int) */ func);
+        private delegate int dt_tputs(string str, int affcnt, IntPtr /* int (*putc)(int) */ putc);
         private static dt_tputs call_tputs = NativeToDelegate<dt_tputs>("tputs");
-        internal static int tputs(string str, int affcnt, IntPtr /* int (*putc)(int) */ func) => call_tputs(str, affcnt, func);
+        internal static int tputs(string str, int affcnt, IntPtr /* int (*putc)(int) */ putc) => call_tputs(str, affcnt, putc);
+
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
+        private delegate int dt_putp(string str);
+        private static dt_putp call_putp = NativeToDelegate<dt_putp>("putp");
+        internal static int putp(string str) => call_putp(str);
 
         [UnmanagedFunctionPointer(CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
         private delegate int dt_setupterm(string str, int fildes, IntPtr /* int* */ errret);
         private static dt_setupterm call_setupterm = NativeToDelegate<dt_setupterm>("setupterm");
         internal static int setupterm(string str, int filedes, IntPtr /* int* */ errret) => call_setupterm(str, filedes, errret);
+
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
+        private delegate int dt_vidputs(uint attrs, IntPtr /* int (*putc)(int) */ putc);
+        private static dt_vidputs call_vidputs = NativeToDelegate<dt_vidputs>("vidputs");
+        internal static int vidputs(uint attrs, IntPtr /* int (*putc)(int) */ putc) => call_vidputs(attrs, putc);
+
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
+        private delegate int dt_vidattr(uint attrs);
+        private static dt_vidattr call_vidattr = NativeToDelegate<dt_vidattr>("vidattr");
+        internal static int vidattr(uint attrs) => call_vidattr(attrs);
+
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
+        private delegate int dt_vid_puts(int attrs, int pair, IntPtr /* void* = NULL */ opts,  IntPtr /* int (*putc)(int) */ putc);
+        private static dt_vid_puts call_vid_puts = NativeToDelegate<dt_vid_puts>("vid_puts");
+        internal static int vid_puts(uint attrs, int pair, IntPtr /* void* = NULL */ opts,  IntPtr /* int (*putc)(int) */ putc) => call_vid_puts(attrs, pair, opts, putc);
+
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
+        private delegate int dt_vid_attr(uint attrs, int pair, IntPtr /* void* = NULL */ opts);
+        private static dt_vid_attr call_vid_attr = NativeToDelegate<dt_vid_attr>("vid_attr");
+        internal static int vid_attr(uint attrs, int pair, IntPtr /* void* = NULL */ opts) => call_vid_attr(attrs, pair, opts);
+
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
+        private delegate int dt_mvcur(int oldrow, int oldcol, int newrow, int newcol);
+        private static dt_mvcur call_mvcur = NativeToDelegate<dt_mvcur>("mvcur");
+        internal static int mvcur(int oldrow, int oldcol, int newrow, int newcol) => call_mvcur(oldrow, oldcol, newrow, newcol);
     }
 }

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Runtime.InteropServices;
-using System.Text;
 using Mindmagma.Curses.Interop;
 
 // startup/shutdown, trace (debugging), termcaps (terminal metadata), etc.
@@ -36,17 +35,16 @@ namespace Mindmagma.Curses
         }
 
         /// <summary>
-        /// Retrieves a pointer to stdscr, the default screen representing the entire terminal screen.
-        /// Will be <c>NULL</c> if the library has not been initialized with <see cref="InitScreen"/>
+        /// Retrieves a pointer to <c>stdscr</c>, the default <c>WINDOW</c> representing the entire terminal screen.
+        /// Will be <see cref="IntPtr.Zero">NULL</see> if the library has not been initialized with <see cref="InitScreen"/>
         /// </summary>
-        public static IntPtr StdScr { get; private set; }
+        public static IntPtr StdScr { get; private set; } = IntPtr.Zero;
 
         public static IntPtr InitScreen()
         {
             IntPtr result = Native.initscr();
             NativeExceptionHelper.ThrowOnFailure(result, nameof(InitScreen));
-            StdScr = result;
-            return result;
+            return StdScr = result;
         }
 
         public static bool IsEndWin()
@@ -143,6 +141,13 @@ namespace Mindmagma.Curses
             return Marshal.PtrToStringUTF8(result);
         }
 
+        public static string Tiparm(string s, int i0, int i1, int i2, int i3)
+        {
+            IntPtr result = Native.tiparm(s, i0, i1, i2, i3);
+            NativeExceptionHelper.ThrowOnFailure(result, nameof(Tigetstr));
+            return Marshal.PtrToStringUTF8(result);
+        }
+
         public static string Tiparm(string s, string s1)
         {
             IntPtr result = Native.tiparm(s, s1);
@@ -157,47 +162,37 @@ namespace Mindmagma.Curses
             return Marshal.PtrToStringUTF8(result);
         }
 
-        public delegate int PutcFunc(char c);
-        public delegate void PutcFunc2(char c);
+        public delegate int PutcFunc2(char c);
+        public delegate void PutcFunc3(char c);
 
-        public delegate int PutcFunc3(int c);
         public delegate void PutcFunc4(int c);
 
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-        private delegate int TputsFunc(int c);
+        public delegate int PutcFunc(int c);
 
         public static void Tputs(string s, int affcnt, PutcFunc func)
-        {
-            TputsFunc internalFunc = c => func((char)c);
-
-            var funcPointer = Marshal.GetFunctionPointerForDelegate(internalFunc);
-            int result = Native.tputs(s, affcnt, funcPointer);
-            NativeExceptionHelper.ThrowOnFailure(result, nameof(Tputs));
-        }
-
-        public static void Tputs(string s, int affcnt, PutcFunc2 func)
-        {
-            TputsFunc internalFunc = c => { func((char)c); return 1; };
-
-            var funcPointer = Marshal.GetFunctionPointerForDelegate(internalFunc);
-            int result = Native.tputs(s, affcnt, funcPointer);
-            NativeExceptionHelper.ThrowOnFailure(result, nameof(Tputs));
-        }
-
-        public static void Tputs(string s, int affcnt, PutcFunc3 func)
         {
             var funcPointer = Marshal.GetFunctionPointerForDelegate(func);
             int result = Native.tputs(s, affcnt, funcPointer);
             NativeExceptionHelper.ThrowOnFailure(result, nameof(Tputs));
         }
 
+        public static void Tputs(string s, int affcnt, PutcFunc2 func)
+        {
+            PutcFunc internalFunc = c => func((char)c);
+            Tputs(s, affcnt, internalFunc);
+        }
+
+        public static void Tputs(string s, int affcnt, PutcFunc3 func)
+        {
+            PutcFunc internalFunc = c => { func((char)c); return c; };
+            Tputs(s, affcnt, internalFunc);
+        }
+
         public static void Tputs(string s, int affcnt, PutcFunc4 func)
         {
-            TputsFunc internalFunc = c => { func(c); return 1; };
-
-            var funcPointer = Marshal.GetFunctionPointerForDelegate(internalFunc);
-            int result = Native.tputs(s, affcnt, funcPointer);
-            NativeExceptionHelper.ThrowOnFailure(result, nameof(Tputs));
+            PutcFunc internalFunc = c => { func(c); return c; };
+            Tputs(s, affcnt, internalFunc);
         }
 
         public static void Setupterm(string s, int fileno)
@@ -214,6 +209,74 @@ namespace Mindmagma.Curses
             {
                 Marshal.FreeHGlobal(ptr);
             }
+        }
+
+        public static void Vidputs(uint attrs, PutcFunc putc)
+        {
+            var funcPointer = Marshal.GetFunctionPointerForDelegate(putc);
+            int result = Native.vidputs(attrs, funcPointer);
+            NativeExceptionHelper.ThrowOnFailure(result, nameof(Vidputs));
+        }
+
+        public static void Vidputs(uint attrs, PutcFunc2 putc)
+        {
+            PutcFunc internalFunc = c => putc((char)c);
+            Vidputs(attrs, internalFunc);
+        }
+
+        public static void Vidputs(uint attrs, PutcFunc3 putc)
+        {
+            PutcFunc internalFunc = c => { putc((char)c); return c; };
+            Vidputs(attrs, internalFunc);
+        }
+
+        public static void Vidputs(uint attrs, PutcFunc4 putc)
+        {
+            PutcFunc internalFunc = c => { putc(c); return c; };
+            Vidputs(attrs, internalFunc);
+        }
+
+        public static void Vidattr(uint attrs)
+        {
+            int result = Native.vidattr(attrs);
+            NativeExceptionHelper.ThrowOnFailure(result, nameof(Vidattr));
+        }
+
+        public static void VidPuts(uint attrs, int pair, PutcFunc putc)
+        {
+            var funcPointer = Marshal.GetFunctionPointerForDelegate(putc);
+            int result = Native.vid_puts(attrs, pair, IntPtr.Zero, funcPointer);
+            NativeExceptionHelper.ThrowOnFailure(result, nameof(VidPuts));
+        }
+
+        public static void VidPuts(uint attrs, int pair, PutcFunc2 putc)
+        {
+            PutcFunc internalFunc = c => putc((char)c);
+            VidPuts(attrs, pair, internalFunc);
+        }
+
+        public static void VidPuts(uint attrs, int pair, PutcFunc3 putc)
+        {
+            PutcFunc internalFunc = c => { putc((char)c); return c; };
+            VidPuts(attrs, pair, internalFunc);
+        }
+
+        public static void VidPuts(uint attrs, int pair, PutcFunc4 putc)
+        {
+            PutcFunc internalFunc = c => { putc(c); return c; };
+            VidPuts(attrs, pair, internalFunc);
+        }
+
+        public static void VidAttr(uint attrs, int pair)
+        {
+            int result = Native.vid_attr(attrs, pair, IntPtr.Zero);
+            NativeExceptionHelper.ThrowOnFailure(result, nameof(VidAttr));
+        }
+
+        public static void Mvcur(int oldrow, int oldcol, int newrow, int newcol)
+        {
+            int result = Native.mvcur(oldrow, oldcol, newrow, newcol);
+            NativeExceptionHelper.ThrowOnFailure(result, nameof(Mvcur));
         }
     }
 }
