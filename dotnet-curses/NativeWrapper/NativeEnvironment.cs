@@ -145,7 +145,7 @@ namespace Mindmagma.Curses.Interop
         internal static int vidattr(uint attrs) => call_vidattr(attrs);
 
         [UnmanagedFunctionPointer(CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
-        private delegate int dt_vid_puts(int attrs, int pair, IntPtr /* void* = NULL */ opts,  IntPtr /* int (*putc)(int) */ putc);
+        private delegate int dt_vid_puts(uint attrs, int pair, IntPtr /* void* = NULL */ opts,  IntPtr /* int (*putc)(int) */ putc);
         private static dt_vid_puts call_vid_puts = NativeToDelegate<dt_vid_puts>("vid_puts");
         internal static int vid_puts(uint attrs, int pair, IntPtr /* void* = NULL */ opts,  IntPtr /* int (*putc)(int) */ putc) => call_vid_puts(attrs, pair, opts, putc);
 
