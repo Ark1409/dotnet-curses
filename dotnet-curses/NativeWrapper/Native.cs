@@ -28,5 +28,10 @@ namespace Mindmagma.Curses.Interop
             return (int)Marshal.PtrToStructure(address, typeof(int));
         }
 
+        private static T MarshalStruct<T>(string exportedSymbolName) where T : unmanaged
+        {
+            IntPtr address = NCursesLibraryHandle.lib.LoadFunction(exportedSymbolName);
+            return (T)Marshal.PtrToStructure(address, typeof(T));
+        }
     }
 }

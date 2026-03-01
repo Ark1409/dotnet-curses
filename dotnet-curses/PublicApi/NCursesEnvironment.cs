@@ -113,11 +113,11 @@ namespace Mindmagma.Curses
             NativeExceptionHelper.ThrowOnFailure(result, nameof(TimeOut));
         }
 
-        public static int Tigetflag(string s)
+        public static bool Tigetflag(string s)
         {
             int result = Native.tigetflag(s);
             NativeExceptionHelper.ThrowOnFailure(result, nameof(Tigetflag));
-            return result;
+            return result != 0;
         }
 
         public static int Tigetnum(string s)
