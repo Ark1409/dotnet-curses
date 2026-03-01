@@ -113,12 +113,34 @@ namespace Mindmagma.Curses
             NativeExceptionHelper.ThrowOnFailure(result, nameof(TimeOut));
         }
 
-        public static string Tigetstr(string s)
+        public static int Tigetflag(string s)
+        {
+            int result = Native.tigetflag(s);
+            NativeExceptionHelper.ThrowOnFailure(result, nameof(Tigetflag));
+            return result;
+        }
+
+        public static int Tigetnum(string s)
+        {
+            int result = Native.tigetnum(s);
+            NativeExceptionHelper.ThrowOnFailure(result + 1, nameof(Tigetflag));
+            return result;
+        }
+
+#nullable enable
+        public static string? Tigetstr(string s)
         {
             IntPtr result = Native.tigetstr(s);
-            NativeExceptionHelper.ThrowOnFailure(result, nameof(Tigetstr));
+            if (result == IntPtr.Zero) return null;
+            if (result == -1)
+            {
+                result = IntPtr.Zero;
+                NativeExceptionHelper.ThrowOnFailure(result, nameof(Tigetstr));
+            }
+
             return Marshal.PtrToStringUTF8(result);
         }
+#nullable disable
 
         public static string Tiparm(string s, int i0)
         {
