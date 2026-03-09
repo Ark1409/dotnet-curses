@@ -362,5 +362,41 @@ namespace Mindmagma.Curses
             var result = Native.resetty();
             NativeExceptionHelper.ThrowOnFailure(result, nameof(Resetty));
         }
+
+        public static void DefProgMode(nint screen)
+        {
+            var result = Native.def_prog_mode_sp(screen);
+            NativeExceptionHelper.ThrowOnFailure(result, nameof(DefProgMode));
+        }
+
+        public static void DefShellMode(nint screen)
+        {
+            var result = Native.def_shell_mode_sp(screen);
+            NativeExceptionHelper.ThrowOnFailure(result, nameof(DefShellMode));
+        }
+
+        public static void ResetProgMode(nint screen)
+        {
+            var result = Native.reset_prog_mode_sp(screen);
+            NativeExceptionHelper.ThrowOnFailure(result, nameof(ResetProgMode));
+        }
+
+        public static void ResetShellMode(nint screen)
+        {
+            var result = Native.reset_shell_mode_sp(screen);
+            NativeExceptionHelper.ThrowOnFailure(result, nameof(ResetShellMode));
+        }
+
+        public static void Savetty(nint screen)
+        {
+            var result = Native.savetty_sp(screen);
+            NativeExceptionHelper.ThrowOnFailure(result, nameof(Savetty));
+        }
+
+        public static void Resetty(nint screen)
+        {
+            var result = Native.resetty_sp(screen);
+            NativeExceptionHelper.ThrowOnFailure(result, nameof(Resetty));
+        }
     }
 }

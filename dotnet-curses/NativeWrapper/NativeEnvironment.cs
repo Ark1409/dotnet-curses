@@ -203,5 +203,35 @@ namespace Mindmagma.Curses.Interop
         private delegate int dt_resetty();
         private static dt_resetty call_resetty = NativeToDelegate<dt_resetty>("resetty");
         internal static int resetty() => call_resetty();
+
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
+        private delegate int dt_def_prog_mode_sp(nint /* SCREEN* */ scr);
+        private static dt_def_prog_mode_sp call_def_prog_mode_sp = NativeToDelegate<dt_def_prog_mode_sp>("def_prog_mode_sp");
+        internal static int def_prog_mode_sp(nint /* SCREEN* */ scr) => call_def_prog_mode_sp(scr);
+
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
+        private delegate int dt_def_shell_mode_sp(nint /* SCREEN* */ scr);
+        private static dt_def_shell_mode_sp call_def_shell_mode_sp = NativeToDelegate<dt_def_shell_mode_sp>("def_shell_mode_sp");
+        internal static int def_shell_mode_sp(nint /* SCREEN* */ scr) => call_def_shell_mode_sp(scr);
+
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
+        private delegate int dt_reset_prog_mode_sp(nint /* SCREEN* */ scr);
+        private static dt_reset_prog_mode_sp call_reset_prog_mode_sp = NativeToDelegate<dt_reset_prog_mode_sp>("reset_prog_mode_sp");
+        internal static int reset_prog_mode_sp(nint /* SCREEN* */ scr) => call_reset_prog_mode_sp(scr);
+
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
+        private delegate int dt_reset_shell_mode_sp(nint /* SCREEN* */ scr);
+        private static dt_reset_shell_mode_sp call_reset_shell_mode_sp = NativeToDelegate<dt_reset_shell_mode_sp>("reset_shell_mode_sp");
+        internal static int reset_shell_mode_sp(nint /* SCREEN* */ scr) => call_reset_shell_mode_sp(scr);
+
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
+        private delegate int dt_savetty_sp(nint /* SCREEN* */ scr);
+        private static dt_savetty_sp call_savetty_sp = NativeToDelegate<dt_savetty_sp>("savetty_sp");
+        internal static int savetty_sp(nint /* SCREEN* */ scr) => call_savetty_sp(scr);
+
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
+        private delegate int dt_resetty_sp(nint /* SCREEN* */ scr);
+        private static dt_resetty_sp call_resetty_sp = NativeToDelegate<dt_resetty_sp>("resetty_sp");
+        internal static int resetty_sp(nint /* SCREEN* */ scr) => call_resetty_sp(scr);
     }
 }
