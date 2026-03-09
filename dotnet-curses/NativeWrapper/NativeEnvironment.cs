@@ -173,5 +173,35 @@ namespace Mindmagma.Curses.Interop
         private delegate void dt_delscreen(nint /* SCREEN* */ sp);
         private static dt_delscreen call_delscreen = NativeToDelegate<dt_delscreen>("delscreen");
         internal static void delscreen(nint /* SCREEN* */ sp) => call_delscreen(sp);
+
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
+        private delegate int dt_def_prog_mode();
+        private static dt_def_prog_mode call_def_prog_mode = NativeToDelegate<dt_def_prog_mode>("def_prog_mode");
+        internal static int def_prog_mode() => call_def_prog_mode();
+
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
+        private delegate int dt_def_shell_mode();
+        private static dt_def_shell_mode call_def_shell_mode = NativeToDelegate<dt_def_shell_mode>("def_shell_mode");
+        internal static int def_shell_mode() => call_def_shell_mode();
+
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
+        private delegate int dt_reset_prog_mode();
+        private static dt_reset_prog_mode call_reset_prog_mode = NativeToDelegate<dt_reset_prog_mode>("reset_prog_mode");
+        internal static int reset_prog_mode() => call_reset_prog_mode();
+
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
+        private delegate int dt_reset_shell_mode();
+        private static dt_reset_shell_mode call_reset_shell_mode = NativeToDelegate<dt_reset_shell_mode>("reset_shell_mode");
+        internal static int reset_shell_mode() => call_reset_shell_mode();
+
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
+        private delegate int dt_savetty();
+        private static dt_savetty call_savetty = NativeToDelegate<dt_savetty>("savetty");
+        internal static int savetty() => call_savetty();
+
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
+        private delegate int dt_resetty();
+        private static dt_resetty call_resetty = NativeToDelegate<dt_resetty>("resetty");
+        internal static int resetty() => call_resetty();
     }
 }
