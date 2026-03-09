@@ -158,5 +158,20 @@ namespace Mindmagma.Curses.Interop
         private delegate int dt_mvcur(int oldrow, int oldcol, int newrow, int newcol);
         private static dt_mvcur call_mvcur = NativeToDelegate<dt_mvcur>("mvcur");
         internal static int mvcur(int oldrow, int oldcol, int newrow, int newcol) => call_mvcur(oldrow, oldcol, newrow, newcol);
+
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
+        private delegate nint dt_newterm(string type, nint /* FILE* */ outf, nint /* FILE* */ inf);
+        private static dt_newterm call_newterm = NativeToDelegate<dt_newterm>("newterm");
+        internal static nint newterm(string type, nint /* FILE* */ outf, nint /* FILE* */ inf) => call_newterm(type, outf, inf);
+
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
+        private delegate nint dt_set_term(nint /* SCREEN* */ newscr);
+        private static dt_set_term call_set_term = NativeToDelegate<dt_set_term>("set_term");
+        internal static nint set_term(nint /* SCREEN* */ newscr) => call_set_term(newscr);
+
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
+        private delegate void dt_delscreen(nint /* SCREEN* */ sp);
+        private static dt_delscreen call_delscreen = NativeToDelegate<dt_delscreen>("delscreen");
+        internal static void delscreen(nint /* SCREEN* */ sp) => call_delscreen(sp);
     }
 }

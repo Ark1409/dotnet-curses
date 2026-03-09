@@ -300,5 +300,31 @@ namespace Mindmagma.Curses
             int result = Native.mvcur(oldrow, oldcol, newrow, newcol);
             NativeExceptionHelper.ThrowOnFailure(result, nameof(Mvcur));
         }
+
+        public static nint Newterm(string name)
+        {
+            // Rely on https://github.com/mirror/ncurses/blob/87c2c84cbd2332d6d94b12a1dcaf12ad1a51a938/ncurses/base/lib_newterm.c#L181-L182
+            nint result = Native.newterm(name, nint.Zero, nint.Zero);
+            if (result == nint.Zero || result == -1)
+            {
+                NativeExceptionHelper.ThrowOnFailure(nint.Zero, nameof(Newterm));
+            }
+            return result;
+        }
+
+        public static nint Setterm(nint newscr)
+        {
+            nint result = Native.set_term(newscr);
+            if (result == nint.Zero)
+            {
+                NativeExceptionHelper.ThrowOnFailure(nint.Zero, nameof(Setterm));
+            }
+            return result;
+        }
+
+        public static void Delscreen(nint newscr)
+        {
+            Native.delscreen(newscr);
+        }
     }
 }

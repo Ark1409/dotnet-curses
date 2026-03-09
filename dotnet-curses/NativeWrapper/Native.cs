@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Runtime.InteropServices;
-using System.Text;
-
-#pragma warning disable IDE1006 // naming rule violation, methods must begin with uppercase
 
 // internal support, curses functions are referenced in the other partial classes
 
@@ -32,6 +29,11 @@ namespace Mindmagma.Curses.Interop
         {
             IntPtr address = NCursesLibraryHandle.lib.LoadFunction(exportedSymbolName);
             return (T)Marshal.PtrToStructure(address, typeof(T));
+        }
+
+        private static nint MarshalNint(string exportedSymbolName)
+        {
+            return NCursesLibraryHandle.lib.LoadFunction(exportedSymbolName);
         }
     }
 }
