@@ -170,6 +170,41 @@ namespace Mindmagma.Curses
             return Marshal.PtrToStringUTF8(result);
         }
 
+        public static string Tiparm(string s, int i0, int i1, int i2, int i3, int i4)
+        {
+            IntPtr result = Native.tiparm(s, i0, i1, i2, i3, i4);
+            NativeExceptionHelper.ThrowOnFailure(result, nameof(Tigetstr));
+            return Marshal.PtrToStringUTF8(result);
+        }
+
+        public static string Tiparm(string s, int i0, int i1, int i2, int i3, int i4, int i5)
+        {
+            IntPtr result = Native.tiparm(s, i0, i1, i2, i3, i4, i5);
+            NativeExceptionHelper.ThrowOnFailure(result, nameof(Tigetstr));
+            return Marshal.PtrToStringUTF8(result);
+        }
+
+        public static string Tiparm(string s, int i0, int i1, int i2, int i3, int i4, int i5, int i6)
+        {
+            IntPtr result = Native.tiparm(s, i0, i1, i2, i3, i4, i5, i6);
+            NativeExceptionHelper.ThrowOnFailure(result, nameof(Tigetstr));
+            return Marshal.PtrToStringUTF8(result);
+        }
+
+        public static string Tiparm(string s, int i0, int i1, int i2, int i3, int i4, int i5, int i6, int i7)
+        {
+            IntPtr result = Native.tiparm(s, i0, i1, i2, i3, i4, i5, i6, i7);
+            NativeExceptionHelper.ThrowOnFailure(result, nameof(Tigetstr));
+            return Marshal.PtrToStringUTF8(result);
+        }
+
+        public static string Tiparm(string s, int i0, int i1, int i2, int i3, int i4, int i5, int i6, int i7, int i8)
+        {
+            IntPtr result = Native.tiparm(s, i0, i1, i2, i3, i4, i5, i6, i7, i8);
+            NativeExceptionHelper.ThrowOnFailure(result, nameof(Tigetstr));
+            return Marshal.PtrToStringUTF8(result);
+        }
+
         public static string Tiparm(string s, string s1)
         {
             IntPtr result = Native.tiparm(s, s1);

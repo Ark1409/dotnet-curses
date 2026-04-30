@@ -110,6 +110,31 @@ namespace Mindmagma.Curses.Interop
         internal static IntPtr tiparm(string str, int i0, int i1, int i2, int i3) => call_tiparmi4(str, i0, i1, i2, i3);
 
         [UnmanagedFunctionPointer(CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
+        private delegate IntPtr dt_tiparmi5(string str, int i0, int i1, int i2, int i3, int i4);
+        private static dt_tiparmi5 call_tiparmi5 = NativeToDelegate<dt_tiparmi5>("tiparm");
+        internal static IntPtr tiparm(string str, int i0, int i1, int i2, int i3, int i4) => call_tiparmi5(str, i0, i1, i2, i3, i4);
+
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
+        private delegate IntPtr dt_tiparmi6(string str, int i0, int i1, int i2, int i3, int i4, int i5);
+        private static dt_tiparmi6 call_tiparmi6 = NativeToDelegate<dt_tiparmi6>("tiparm");
+        internal static IntPtr tiparm(string str, int i0, int i1, int i2, int i3, int i4, int i5) => call_tiparmi6(str, i0, i1, i2, i3, i4, i5);
+
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
+        private delegate IntPtr dt_tiparmi7(string str, int i0, int i1, int i2, int i3, int i4, int i5, int i6);
+        private static dt_tiparmi7 call_tiparmi7 = NativeToDelegate<dt_tiparmi7>("tiparm");
+        internal static IntPtr tiparm(string str, int i0, int i1, int i2, int i3, int i4, int i5, int i6) => call_tiparmi7(str, i0, i1, i2, i3, i4, i5, i6);
+
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
+        private delegate IntPtr dt_tiparmi8(string str, int i0, int i1, int i2, int i3, int i4, int i5, int i6, int i7);
+        private static dt_tiparmi8 call_tiparmi8 = NativeToDelegate<dt_tiparmi8>("tiparm");
+        internal static IntPtr tiparm(string str, int i0, int i1, int i2, int i3, int i4, int i5, int i6, int i7) => call_tiparmi8(str, i0, i1, i2, i3, i4, i5, i6, i7);
+
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
+        private delegate IntPtr dt_tiparmi9(string str, int i0, int i1, int i2, int i3, int i4, int i5, int i6, int i7, int i8);
+        private static dt_tiparmi9 call_tiparmi9 = NativeToDelegate<dt_tiparmi9>("tiparm");
+        internal static IntPtr tiparm(string str, int i0, int i1, int i2, int i3, int i4, int i5, int i6, int i7, int i8) => call_tiparmi9(str, i0, i1, i2, i3, i4, i5, i6, i7, i8);
+
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
         private delegate IntPtr dt_tiparms1(string str, string s1);
         private static dt_tiparms1 call_tiparms1 = NativeToDelegate<dt_tiparms1>("tiparm");
         internal static IntPtr tiparm(string str, string s1) => call_tiparms1(str, s1);
