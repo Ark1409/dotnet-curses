@@ -119,11 +119,24 @@ namespace Mindmagma.Curses
             NativeExceptionHelper.ThrowOnFailure(result, nameof(Tigetflag));
             return result != 0;
         }
+        public static bool Tigetuserflag(string s)
+        {
+            int result = Native.tigetflag(s);
+            if (result <= -1) result = 0;
+            return result != 0;
+        }
 
         public static int Tigetnum(string s)
         {
             int result = Native.tigetnum(s);
             NativeExceptionHelper.ThrowOnFailure(result + 1, nameof(Tigetflag));
+            return result;
+        }
+
+        public static int Tigetusernum(string s)
+        {
+            int result = Native.tigetnum(s);
+            if (result <= -2) result = -1;
             return result;
         }
 
@@ -137,6 +150,14 @@ namespace Mindmagma.Curses
                 result = IntPtr.Zero;
                 NativeExceptionHelper.ThrowOnFailure(result, nameof(Tigetstr));
             }
+
+            return Marshal.PtrToStringUTF8(result);
+        }
+
+        public static string? Tigetuserstr(string s)
+        {
+            IntPtr result = Native.tigetstr(s);
+            if (result == IntPtr.Zero || result <= -1) return null;
 
             return Marshal.PtrToStringUTF8(result);
         }
@@ -432,6 +453,21 @@ namespace Mindmagma.Curses
         {
             var result = Native.resetty_sp(screen);
             NativeExceptionHelper.ThrowOnFailure(result, nameof(Resetty));
+        }
+
+        /// <summary>
+        /// Controls whether the calling application is able to use user-defined or nonstandard names which may be
+        /// compiled into the terminfo description, i.e., via the terminfo or termcap interfaces. Normally these names
+        /// are available for use, since the essential decision is made by using the -x option of tic to compile
+        /// extended terminal definitions. However you can disable this feature to ensure compatibility with other
+        /// implementations of curses. </summary>
+        /// <param name="enable">Wheter to enable or disable use of extended (user-defined) names. Defaults to
+        /// <c>true</c></param>
+        /// <returns>The old value of the flag.</returns>
+        public static bool UseExtendedNames(bool enable = true)
+        {
+            var result = Native.use_extended_names(enable);
+            return result != 0;
         }
     }
 }

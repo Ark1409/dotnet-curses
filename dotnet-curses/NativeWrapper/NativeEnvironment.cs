@@ -258,5 +258,21 @@ namespace Mindmagma.Curses.Interop
         private delegate int dt_resetty_sp(nint /* SCREEN* */ scr);
         private static dt_resetty_sp call_resetty_sp = NativeToDelegate<dt_resetty_sp>("resetty_sp");
         internal static int resetty_sp(nint /* SCREEN* */ scr) => call_resetty_sp(scr);
+
+
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
+        private delegate int dt_use_extended_names(bool enable);
+        private static dt_use_extended_names call_use_extended_names = NativeToDelegate<dt_use_extended_names>("use_extended_names");
+
+        /// <summary>
+        /// Controls whether the calling application is able to use user-defined or nonstandard names which may be
+        /// compiled into the terminfo description, i.e., via the terminfo or termcap interfaces. Normally these names
+        /// are available for use, since the essential decision is made by using the -x option of tic to compile
+        /// extended terminal definitions. However you can disable this feature to ensure compatibility with other
+        /// implementations of curses. </summary>
+        /// <param name="enable">Wheter to enable or disable use of extended (user-defined) names. Defaults to
+        /// <c>true</c></param>
+        /// <returns>The old value of the flag.</returns>
+        internal static int use_extended_names(bool enable) => call_use_extended_names(enable);
     }
 }
